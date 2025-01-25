@@ -68,7 +68,7 @@ namespace os_lab2::app {
         const std::string filename = "testfile_no_cache.dat";
         const size_t fileSize = 1L * 1024 * 1024 * 1024; // 1 GB
         const size_t blockSize = 1024; // Размер блока чтения
-        const int numReads = 10;
+        const int numReads = 100;
 
         static bool fileCreated = false;
         if (!fileCreated) {
@@ -76,8 +76,8 @@ namespace os_lab2::app {
             fileCreated = true;
         }
 
-        int fd = -1;
-        if (_sopen_s(&fd, filename.c_str(), _O_RDONLY | _O_BINARY, _SH_DENYNO, _S_IREAD) != 0) {
+        std::ifstream file(filename, std::ios::binary);
+        if (!file) {
             throw std::runtime_error("Failed to open file without cache");
         }
 
@@ -88,16 +88,14 @@ namespace os_lab2::app {
         auto start_time = std::chrono::high_resolution_clock::now();
         for (int i = 0; i < numReads; ++i) {
             size_t blockIndex = dist(rng);
-            _lseek(fd, blockIndex * blockSize, SEEK_SET);
-            if (_read(fd, buffer.data(), blockSize) <= 0) {
-                _close(fd);
+            file.seekg(blockIndex * blockSize);
+            if (!file.read(buffer.data(), blockSize)) {
                 throw std::runtime_error("Error reading file without cache");
             }
         }
         auto end_time = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> duration = end_time - start_time;
 
-        _close(fd);
         std::cout << "Reading without cache took " << duration.count() * 1e3 << " ms\n";
     }
 

@@ -15,10 +15,10 @@ CACHE_API int lab2_open(const char *path);
 CACHE_API int lab2_close(int fd);
 
 // Чтение данных из файла
-CACHE_API ssize_t lab2_read(int fd, void *buf, size_t count);
+CACHE_API size_t lab2_read(int fd, void *buf, size_t count);
 
 // Запись данных в файл
-CACHE_API ssize_t lab2_write(int fd, const void *buf, size_t count);
+CACHE_API size_t lab2_write(int fd, const void *buf, size_t count);
 
 // Перестановка позиции указателя на данные файла
 CACHE_API off_t lab2_lseek(int fd, off_t offset, int whence);
