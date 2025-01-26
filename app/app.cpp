@@ -3,8 +3,6 @@
 #include <chrono>
 #include <fstream>
 #include <fcntl.h>
-#include <share.h>
-#include <sys/stat.h>
 #include "Cache/CacheAPI.h"
 
 namespace os_lab2::app {
@@ -68,7 +66,7 @@ namespace os_lab2::app {
         const std::string filename = "testfile_no_cache.dat";
         const size_t fileSize = 1L * 1024 * 1024 * 1024; // 1 GB
         const size_t blockSize = 1024; // Размер блока чтения
-        const int numReads = 100;
+        const int numReads = 10;
 
         static bool fileCreated = false;
         if (!fileCreated) {

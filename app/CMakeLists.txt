@@ -19,7 +19,3 @@ target_sources(app
         PRIVATE
         app.cpp
 )
-
-SET(CMAKE_FIND_LIBRARY_SUFFIXES ".a;.dll.a;.dll")
-set(BUILD_SHARED_LIBS OFF)
-set(CMAKE_EXE_LINKER_FLAGS "-static")

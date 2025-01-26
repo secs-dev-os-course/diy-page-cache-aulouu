@@ -11,7 +11,7 @@ static CacheManager cache(blockSize, 100);
 
 CACHE_API int lab2_open(const char *path) {
     HANDLE fileHandle = CreateFileA(path, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, nullptr,
-                                    OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+                                    OPEN_ALWAYS, FILE_FLAG_NO_BUFFERING, nullptr);
     if (fileHandle == INVALID_HANDLE_VALUE) {
         std::cerr << "Failed to open file. Error: " << GetLastError() << std::endl;
         return -1;
